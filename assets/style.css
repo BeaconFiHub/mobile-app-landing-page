@@ -176,7 +176,7 @@ html[dir=rtl] .app__logo-wrapper {
     grid-template-columns: 200px 200px 200px 200px 200px 200px;
     grid-column-gap: 20px;
     grid-row-gap: 20px;
-    width: 300px;
+    overflow-y: auto;
 }
 .app__screenshots-list .lightbox {
   flex: 1;
@@ -184,8 +184,7 @@ html[dir=rtl] .app__logo-wrapper {
 }
 @media (max-width: 768px) {
   .app__screenshots-list {
-    padding: 32px;
-    width: 800px;
+    padding: 32px 20px;
       display: flex;
   }
     .app__screenshots-list .lightbox {
@@ -206,7 +205,6 @@ html[dir=rtl] .app__logo-wrapper {
   transform: scale(1.05);
 }
 .app__screenshots-wrapper {
-  overflow-y: auto;
 }
 .app__buttons {
   display: flex;
