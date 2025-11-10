@@ -193,7 +193,7 @@
                 }
 
                 // 2. 执行逻辑判断
-                if (!is_weixin) {
+                if (is_weixin) {
                     // **【逻辑修复点 B】**：如果在微信内，显示浮层引导用户在浏览器中打开
                     loadHtml_weixin();
                 } else {
