@@ -338,11 +338,96 @@ html[dir=rtl] .app__logo-wrapper {
 .darkmode-toggle {
   z-index: 500;
 }
-
+a:hover {
+    color: inherit; /* 保持与正常状态相同的颜色 */
+    background-color: transparent; /* 移除任何背景色变化 */
+    text-decoration: none; /* 移除悬停时可能出现的下划线 */
+    opacity: 1; /* 确保不透明度不变 */
+}
+a:active {
+    color: inherit; /* 保持颜色不变 */
+    background-color: transparent; /* 移除背景色变化 */
+    /* 许多移动浏览器的高亮效果需要通过设置 -webkit-tap-highlight-color 来移除 */
+    -webkit-tap-highlight-color: transparent;
+}
 .darkmode-background {
   background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ4MCIgaGVpZ2h0PSI2NTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+ICAgIDxwYXRoIGQ9Ik03MzEuMjA3IDY0OS44MDJDOTM1LjQ4NCA2NDIuMTQgMTQ4MCAzMzcuMzI1IDE0ODAgMTgwLjg4OGMwLTE1Ni40MzgtMzA5Ljc0NC0zNi4wNTUtNzIwLTM2LjA1NVMwLTE3NC40ODMgMCAxMzUuMTQ0YzAgMzA5LjYyNyA1MjYuOTMgNTIyLjMyIDczMS4yMDcgNTE0LjY1OHoiIGZpbGw9IiNGNkY4RkEiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==) !important;
   background-size: cover !important;
   background-position-x: 20vw !important;
   background-position-y: -10vh !important;
   background-repeat: no-repeat !important;
+}
+
+
+/* 经典模态弹窗样式 */
+#guide-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* 半透明遮罩 */
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+#guide-content {
+    background: #fff;
+    border-radius: 8px; /* 轻微圆角 */
+    padding: 20px;
+    max-width: 280px; /* 更紧凑 */
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* 经典阴影 */
+    border: 1px solid #e0e0e0;
+}
+#guide-icon {
+    font-size: 48px; /* 简单图标提示 */
+    color: #007bff; /* 经典蓝 */
+    margin-bottom: 12px;
+}
+#guide-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+#guide-text {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+    margin-bottom: 16px;
+}
+.btn-group {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+.btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s;
+}
+#copy-btn {
+    background: #007bff; /* 经典蓝按钮 */
+    color: white;
+}
+#copy-btn:hover {
+    background: #0056b3;
+}
+#close-btn {
+    background: #f8f9fa; /* 浅灰次按钮 */
+    color: #666;
+    border: 1px solid #dee2e6;
+}
+#close-btn:hover {
+    background: #e9ecef;
+}
+/* 隐藏弹窗后的页面内容 */
+body.modal-open {
+    overflow: hidden;
 }

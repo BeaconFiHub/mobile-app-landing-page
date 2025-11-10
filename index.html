@@ -40,10 +40,10 @@
 	<a href="javascript:void(0);" style="opacity: 0.4;" class="app__button-play" title="Get on Google Play">
 		<img src="content/image/1kpydb2n1ft0kuxusdpa.svg" alt="Get on Google Play">
 	</a>
-	<a href="javascript:void(0);" style="opacity: 0.4;" class="app__button-ios" title="Get on Appstore">
+	<a href="" style="opacity: 0.4;" class="app__button-ios" title="Get on Appstore">
 		<img src="content/image/xvl2bw58zzk0a1l7k4gz.svg" alt="Get on Appstore">
 	</a>
-	<a href="https://github.com/BeaconFiHub/downloads/releases/download/0.9.14/beacon-mobile.apk" class="app__button-web" target="_blank" title="Go to website">
+	<a id="app-click" onclick="appClick()" href="javascript:void(0);" class="app__button-web" title="Go to website">
 		<img src="content/image/kg315o7lmhzwogcwusdi.svg" alt="Go to website">
 	</a>
 </div>
@@ -133,7 +133,76 @@
 			window.onload = function () {
 				var tobi = new Tobi();
 			};
+
 		</script>
 
+        <script>
+
+
+            // 隐藏浮层的函数
+            function hideGuide() {
+                const tip = document.getElementById('weixin-tip');
+                if (tip) {
+                    tip.style.display = 'none';
+                }
+            }
+
+            // 主点击逻辑
+            function appClick() {
+                const apkUrl = "https://github.com/BeaconFiHub/downloads/releases/download/0.9.14/beacon-mobile.apk";
+
+                // 检查是否在微信内
+                var is_weixin = (function() {
+                    var ua = navigator.userAgent.toLowerCase();
+                    return ua.match(/micromessenger/i) == "micromessenger";
+                })();
+
+                // 1. 定义创建浮层的函数
+                function loadHtml_weixin() {
+                    // 检查浮层是否已存在，如果存在则直接显示
+                    let div = document.getElementById('weixin-tip');
+                    if (!div) {
+                        div = document.createElement('div');
+                        div.id = 'weixin-tip';
+                        // 这里的 live_weixin.png 应该替换为您实际的引导图片，指向右上角菜单
+                        div.innerHTML = '<p onclick="hideGuide()"><img src="./live_weixin.png" alt="微信打开" style="cursor: pointer;"></p>';
+                        document.body.appendChild(div);
+
+                        // **【关键修复点 A】**：在创建时，为浮层容器绑定点击隐藏事件
+                        div.addEventListener('click', hideGuide);
+
+                        // 添加样式
+                        var cssText = "#weixin-tip{display:block;position:fixed;left:0;top:0;background:rgba(0,0,0,0.8);filter:alpha(opacity=80);width:100%;height:100%;z-index:100}#weixin-tip p{text-align:center;margin-top:10%;padding:0 3%;position:relative}#weixin-tip p img{max-width: 100%;height: auto;}";
+                        var style = document.createElement('style');
+                        style.rel = 'stylesheet';
+                        style.type = 'text/css';
+                        try {
+                            style.appendChild(document.createTextNode(cssText));
+                        } catch (e) {
+                            style.styleSheet.cssText = cssText;
+                        }
+                        document.getElementsByTagName("head")[0].appendChild(style);
+                    }
+
+                    // 确保浮层可见
+                    div.style.display = 'block';
+
+                    // 修正高度，确保全屏覆盖
+                    var winHeight = typeof window.innerHeight != 'undefined' ? window.innerHeight : document.documentElement.clientHeight;
+                    div.style.height = winHeight + 'px';
+                }
+
+                // 2. 执行逻辑判断
+                if (!is_weixin) {
+                    // **【逻辑修复点 B】**：如果在微信内，显示浮层引导用户在浏览器中打开
+                    loadHtml_weixin();
+                } else {
+                    // **【逻辑修复点 C】**：如果不在微信内，直接打开下载链接
+                    window.open(apkUrl, '_blank');
+                }
+            }
+        </script>
+
   </body>
+
 </html>
